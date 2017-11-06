@@ -204,6 +204,10 @@ class Response:
             w("%s: %s\n" % (key, value))
         w("\n")  # extra leerzeile schliesst header ab
 
+        # Addition: Set proper Content Length
+        if self.body and not 'Content-Length' in self.headers:
+            w("Content-Length: %d\n" % len(self.body))
+
         if self.body:
             if isinstance(self.body, str):
                 w(self.body)
